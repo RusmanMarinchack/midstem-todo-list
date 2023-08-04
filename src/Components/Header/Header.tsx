@@ -10,21 +10,10 @@ export default function Header() {
     const { todos }: IContext = useContext(Context)
     console.log(todos)
     return(
-        <HeaderStyle className="header">
+        <header className="header">
             <div className="header__container _container">
-                <H1>Todos ({ todos?.length })</H1>
+                <h1>Todos ({ todos?.length })</h1>
             </div>
-        </HeaderStyle>
+        </header>
     )
 }
-
-const HeaderStyle = styled.header`
-background: #e0e0e0;
-padding: 20px;
-`
-
-const H1 = styled.h1`
-font-size: 24px;
-font-weight: 700;
-margin: 0;
-`
