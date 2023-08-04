@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { styled } from 'styled-components';
 
+import 'normalize.css';
+
 // Components
 import Header from './Header/Header';
 import TodoList from './TodoList/TodoList';
 import Forms from './Forms/Forms';
-
-// import { ITodo } from '../modules'
 
 // Context
 import { Context } from '../Context/Context'
@@ -17,30 +17,29 @@ import { ITodo } from '../modules';
 function App() {
   const [todos, setTodos] = useState<ITodo[]>([])
   const [editText, setEditText] = useState<string>('')
-  const [edit, setEdit] = useState<boolean>(false)
 
+ // Получаємо список справ.
   const fetcher = (url: string) => {
     let dataLocalStorej = localStorage.getItem(url)
     return dataLocalStorej ? JSON.parse(dataLocalStorej) : []
   };
   
-
   const { data, error } = useSWR<any>('todos', fetcher)
 
   let fetchedTodos: ITodo[] = data !== undefined ? data : [];
 
+  
   useEffect(() => {
     setTodos(fetchedTodos)
   }, [fetchedTodos])
- 
-  // useEffect(() => {
-  //   localStorage.setItem('todos', JSON.stringify([{id: 111, task: 'sadads', checked: false}]))
-  // }, [])
+// ===
 
+  // Обновляємо список справ.
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos))
   }, [todos])
 
+  // Функція для довання нових справ.
   const addTodo = (todo: string) => {
     let newId: number = 1;
 
@@ -58,14 +57,18 @@ function App() {
 
       
         setTodos(prevTodos => [newTodo, ...prevTodos]);
+      } else {
+        alert("The field must not be empty!!!")
       }
       
   }
 
+  // Функція для видалення справ.
   const removeTodo = (i: number) => {
     setTodos(prew => prew.filter((item, index) => index !== i))
   }
 
+  // Помічаємо що справа виконана.
   const doneTodo = (i: number) => {
     setTodos(prev => prev.map((item, index) => {
       if(index === i) {
@@ -76,6 +79,7 @@ function App() {
     }));
   }
 
+  // Редагуємо справу.
   const editTodo = (task: string, i: number) => {
     setEditText(task)
 
@@ -95,19 +99,19 @@ function App() {
     value={
       {
         todos,
+        error,
         addTodo,
         removeTodo,
         doneTodo,
         editTodo,
         editText,
-        edit,
       }
       }>
       <Container className="">
         <Header/>
         <main>
           <Forms />
-          <TodoList todos={todos}/>
+          <TodoList/>
         </main>
       </Container>  
     </Context.Provider>
@@ -118,6 +122,15 @@ export default App;
 
 const Container = styled.div`
 max-width: 750px;
-padding: 0 15px;
-margin: 0 auto;
+margin: 15px auto;
+border-radius: 8px;
+border: 1px solid silver;
+
+& * {
+  box-sizing: border-box;
+}
+
+& button {
+  cursor: pointer;
+}
 `

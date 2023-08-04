@@ -8,10 +8,11 @@ export interface ITodo {
 
 export interface IContext {
     todos?: ITodo[]
+    error?: unknown
     addTodo?: (task: string) => void
     removeTodo?: (i: number) => void
     doneTodo?: (i: number) => void
     editTodo?: (task: string, i: number) => void
-    editText?: any
+    editText?: string
     edit?: boolean
 }
