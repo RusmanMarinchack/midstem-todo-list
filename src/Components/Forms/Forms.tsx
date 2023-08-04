@@ -8,7 +8,6 @@ import { IContext } from '../../modules'
 
 export default function Forms() {
     const [searchValue, setSearchValue] = useState('')
-    const [btnText, setBtnText] = useState(false)
 
     const { addTodo }: IContext = useContext(Context)
     

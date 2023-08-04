@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useState, useRef, ReactEventHandler } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faEdit, faRemove } from "@fortawesome/free-solid-svg-icons";
 import { styled } from "styled-components";
@@ -28,10 +28,10 @@ export default function TodoItem({ todo, index }: ITodoItem) {
 
     useEffect(() => {
         setText(todo.task)
-    }, [])
+    }, [todo.task])
 
     return(
-        <Li>
+        <li>
             <input type="checkbox"
             onChange={() => {
                 doneTodo && doneTodo(index)
@@ -42,11 +42,11 @@ export default function TodoItem({ todo, index }: ITodoItem) {
             <input 
             ref={inputRef}
             type="text"
-            onChange={(e) => {
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 setText(e.target.value)
                 editTodo && editTodo(e.target.value, index)
             }}
-            onKeyDown={(e) => {
+            onKeyDown={(e: React.KeyboardEvent<HTMLInputElement>) => {
                 if(e.key === 'Enter') {
                     setEditState(!editState)
                 }
@@ -57,7 +57,7 @@ export default function TodoItem({ todo, index }: ITodoItem) {
             value={text}
             />
             :
-            <p>{ text }</p>
+            <button>{ text }</button>
             }
             <div>
                 <button
@@ -75,10 +75,6 @@ export default function TodoItem({ todo, index }: ITodoItem) {
                     <FontAwesomeIcon icon={faRemove}/>
                 </button>
             </div>
-        </Li>
+        </li>
     )
 }
-
-const Li = styled.li `
-display: flex;
-align-items: center;`

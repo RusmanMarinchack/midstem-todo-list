@@ -103,21 +103,15 @@ function App() {
         edit,
       }
       }>
-      <Container className="">
+      <div className="">
         <Header/>
         <main>
           <Forms />
           <TodoList todos={todos}/>
         </main>
-      </Container>  
+      </div>  
     </Context.Provider>
   );
 }
 
 export default App;
-
-const Container = styled.div`
-max-width: 750px;
-padding: 0 15px;
-margin: 0 auto;
-`
