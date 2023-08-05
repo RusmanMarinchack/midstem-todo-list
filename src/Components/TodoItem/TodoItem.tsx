@@ -3,8 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faEdit, faRemove } from "@fortawesome/free-solid-svg-icons";
 import { styled } from "styled-components";
 
+// Interfaces
 import { IContext, ITodo } from "../../modules";
 
+// Context
 import { Context } from "../../Context/Context";
 
 interface ITodoItem {
@@ -21,16 +23,19 @@ export default function TodoItem({ todo, index }: ITodoItem) {
   const inputRef = useRef<HTMLInputElement>(null);
   const buttonEditRef = useRef<HTMLButtonElement>(null);
 
+  // При кліку на кнопку редагувати ставимл фокус на інпут для редагування.
   useEffect(() => {
     if (inputRef.current) {
       inputRef.current?.focus();
     }
   }, [editState]);
 
+
   useEffect(() => {
     setText(todo.task);
   }, []);
 
+  // Вішаємо клік на документ щоб змінити стан редагування справи якщо він активний;
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       const isClickInputInside = inputRef.current?.contains(event.target as Node);
@@ -38,13 +43,9 @@ export default function TodoItem({ todo, index }: ITodoItem) {
       if (!isClickInputInside && !isClickBtnInside) {
         setEditState(false);
       }
-    console.log(1)
     }
 
     document.addEventListener("click", handleClickOutside);
-    return () => {
-      document.removeEventListener("click", handleClickOutside);
-    };
   }, []);
   
   return (
@@ -198,6 +199,7 @@ const BtnBox = styled.div`
       @media (max-width: 575.98px) {
         margin-right: 0px;
         margin-bottom: 5px;
+        padding: 5px 12px;
       }
     }
   }

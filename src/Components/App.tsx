@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import useSWR from 'swr';
 import { styled } from 'styled-components';
 
-import 'normalize.css';
-
 // Components
 import Header from './Header/Header';
 import TodoList from './TodoList/TodoList';
@@ -11,14 +9,16 @@ import Forms from './Forms/Forms';
 
 // Context
 import { Context } from '../Context/Context'
+
+// Intefaces
 import { ITodo } from '../modules';
 
 
 function App() {
   const [todos, setTodos] = useState<ITodo[]>([])
-  const [editText, setEditText] = useState<string>('')
+  const [editText, setEditText] = useState('')
 
- // Получаємо список справ.
+ // Получаємо список справ з dataLocalStorej.
   const fetcher = (url: string) => {
     let dataLocalStorej = localStorage.getItem(url)
     return dataLocalStorej ? JSON.parse(dataLocalStorej) : []
@@ -107,7 +107,7 @@ function App() {
         editText,
       }
       }>
-      <Container className="">
+      <Container>
         <Header/>
         <main>
           <Forms />
@@ -120,17 +120,12 @@ function App() {
 
 export default App;
 
+
+
 const Container = styled.div`
-max-width: 750px;
-margin: 15px auto;
-border-radius: 8px;
-border: 1px solid silver;
-
-& * {
-  box-sizing: border-box;
-}
-
-& button {
-  cursor: pointer;
-}
+  max-width: 750px;
+  margin: 15px auto;
+  border-radius: 8px;
+  border: 1px solid silver;
+  overflow: hidden;
 `

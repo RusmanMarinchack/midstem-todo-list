@@ -1,14 +1,14 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useState} from "react";
 import { styled } from 'styled-components';
-
 // Context
 import { Context } from "../../Context/Context";
 
+// Interfaces
 import { IContext } from '../../modules'
+
 
 export default function Forms() {
     const [searchValue, setSearchValue] = useState('')
-    const [btnText, setBtnText] = useState(false)
 
     const { addTodo }: IContext = useContext(Context)
     

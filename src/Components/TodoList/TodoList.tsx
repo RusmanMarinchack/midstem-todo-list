@@ -7,7 +7,7 @@ import TodoItem from "../TodoItem/TodoItem";
 // Context
 import { Context } from "../../Context/Context";
 
-// Interfises
+// Interfaces
 import { IContext } from "../../modules";
 
 export default function TodoList() {
