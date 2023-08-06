@@ -24,7 +24,7 @@ function App() {
     return dataLocalStorej ? JSON.parse(dataLocalStorej) : []
   };
   
-  const { data, error } = useSWR<any>('todos', fetcher)
+  const { data, error } = useSWR<ITodo[]>('todos', fetcher)
 
   let fetchedTodos: ITodo[] = data !== undefined ? data : [];
 
@@ -37,6 +37,7 @@ function App() {
   // Обновляємо список справ.
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos))
+
   }, [todos])
 
   // Функція для довання нових справ.
@@ -60,7 +61,6 @@ function App() {
       } else {
         alert("The field must not be empty!!!")
       }
-      
   }
 
   // Функція для видалення справ.
